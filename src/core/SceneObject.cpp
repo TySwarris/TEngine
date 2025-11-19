@@ -1,6 +1,11 @@
 #include "SceneObject.h"
 #include <algorithm>
-#include <cstddef>
+#include <glm/ext/matrix_float4x4.hpp>
+
+SceneObject::SceneObject() {
+  localMatrix = glm::mat4(1.0f);
+  parent = nullptr;
+}
 
 void SceneObject::setParent(SceneObject *newParent) {
   if (parent != nullptr) {
@@ -15,3 +20,16 @@ void SceneObject::setParent(SceneObject *newParent) {
 }
 
 SceneObject *SceneObject::getParent() const { return parent; }
+
+glm::mat4 &SceneObject::getLocalMatrix() { return localMatrix; }
+
+glm::mat4 SceneObject::getWorldMatrix() const {
+  glm::mat4 result(1.0f);
+  const SceneObject *o = this;
+
+  while (o != nullptr) {
+    result = o->localMatrix * result;
+    o = o->parent;
+  }
+  return result;
+}
