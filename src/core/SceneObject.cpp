@@ -14,4 +14,4 @@ void SceneObject::setParent(SceneObject *newParent) {
   }
 }
 
-SceneObject SceneObject::*getparent() { return parent; }
+SceneObject *SceneObject::getParent() const { return parent; }
