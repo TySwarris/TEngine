@@ -1,6 +1,6 @@
 #include "SceneObject.h"
 #include <algorithm>
-#include <glm/ext/matrix_float4x4.hpp>
+#include <cinttypes>
 
 SceneObject::SceneObject() {
   localMatrix = glm::mat4(1.0f);
@@ -32,4 +32,26 @@ glm::mat4 SceneObject::getWorldMatrix() const {
     o = o->parent;
   }
   return result;
+}
+
+void SceneObject::draw(const glm::mat4 &parentMatrix, int pass) {
+  glm::mat4 tempMatrix(1.0f);
+  tempMatrix = parentMatrix * localMatrix;
+
+  drawSelf(tempMatrix, pass);
+  for (SceneObject *child : children) {
+    child->draw(tempMatrix, pass);
+  }
+}
+
+void SceneObject::draw(const glm::mat4 &parentMatrix) { draw(parentMatrix, 0); }
+
+void SceneObject::drawSelf(const glm::mat4 &matrix) {
+  // do nothing, for overriding.
+}
+
+void SceneObject::drawSelf(const glm::mat4 &matrix, int pass) {
+  if (pass == 0) {
+    drawSelf(matrix);
+  }
 }
