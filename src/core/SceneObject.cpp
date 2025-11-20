@@ -1,6 +1,5 @@
 #include "SceneObject.h"
 #include <algorithm>
-#include <cinttypes>
 
 SceneObject::SceneObject() {
   localMatrix = glm::mat4(1.0f);

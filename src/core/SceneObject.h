@@ -24,16 +24,18 @@ public:
   glm::mat4 getWorldMatrix() const;
   // drawing
 
-  // Draw this object and all its children in the subgraph
-  // Usually used on the root object with an identity matrix glm::mat4 m(1.0f);.
-  // \param parentMatrix the model->world matrix of the parent.
+  /// Draw this object and all its children in the subgraph
+  /// Usually used on the root object with an identity matrix glm::mat4
+  /// m(1.0f);.
+  /// \param parentMatrix the model->world matrix of the parent.
   void draw(const glm::mat4 &parentMatrix);
 
-  // Draw this object and all its children in the subgraph
-  // Usually used on the root object with an identity matrix glm::mat4 m(1.0f);.
-  // \param parentMatrix the mode->world matrix of the parent.
-  // \param pass : Render pass index (0 = normal) subclasses can override
-  // drawSelf to support additional passes
+  /// Draw this object and all its children in the subgraph
+  /// Usually used on the root object with an identity matrix glm::mat4
+  /// m(1.0f);.
+  /// \param parentMatrix the mode->world matrix of the parent.
+  /// \param pass : Render pass index (0 = normal) subclasses can override
+  /// drawSelf to support additional passes
   void draw(const glm::mat4 &parentMatrix, int pass);
 
   /// Draw this object. Override in subclasses to draw specific objects.
